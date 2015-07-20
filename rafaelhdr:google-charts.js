@@ -45,7 +45,7 @@ if (Meteor.isClient) {
 
   // Code for meteor
 
-  google.load('visualization', '1.0', {'packages':['corechart', 'timeline', 'guage'], callback: drawChart});
+  google.load('visualization', '1.0', {'packages':['corechart', 'timeline'], callback: drawChart});
 
   drawChart = function (chart) {
     var data = new google.visualization.DataTable();
