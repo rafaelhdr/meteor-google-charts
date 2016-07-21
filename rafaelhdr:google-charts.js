@@ -60,6 +60,8 @@ if (Meteor.isClient) {
 
     var chart = new google.visualization[chart.type](document.getElementById(chart.target));
     chart.draw(data, options);
+
+    return chart;
   }
 
 }
