@@ -45,16 +45,34 @@ if (Meteor.isClient) {
 
   // Code for meteor
 
-  google.load('visualization', '1.0', {'packages':['corechart', 'timeline', 'gauge'], callback: drawChart});
+  var settings = Meteor.settings.public['rafaelhdr-google-charts']
+  var packages
+  if (typeof settings == 'undefined' || settings.packages == "undefined") {
+    packages = ['corechart', 'timeline', 'gauge']
+  }
+  else {
+    packages = settings.packages
+  }
+  console.log(packages)
+  google.load('visualization', '1.0', {'packages': packages, callback: drawChart});
 
   drawChart = function (chart) {
-    var data = new google.visualization.DataTable();
+    var data
 
-    _.each(chart.columns, function (column) {
-      data.addColumn(column[0], column[1]);
-    });
+    // Columns and rows based charts
+    if (typeof chart.columns != 'undefined' && typeof chart.rows != 'undefined')
+    {
+      data = new google.visualization.DataTable();
 
-    data.addRows(chart.rows);
+      _.each(chart.columns, function (column) {
+        data.addColumn(column[0], column[1]);
+      });
+      data.addRows(chart.rows);      
+    }
+
+    else {
+      data = google.visualization.arrayToDataTable(chart.data)
+    }
 
     var options = chart.options;
 

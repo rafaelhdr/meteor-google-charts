@@ -9,6 +9,20 @@
 </body>
 
 <template name="charts">
-  <h2>Charts</h2>
+  <h2>Chart 1 - Hello World</h2>
   <div id="chart1" width="100%"></div>
+
+  <h2>Chart 2 - Adding Google Charts packages</h2>
+  <p>The chart below only works if you add an example.json file with:</p>
+<pre>{
+	"public": {
+		"rafaelhdr-google-charts": {
+			"packages": ["corechart", "timeline", "gauge", "map"]
+		}
+	}
+}</pre>
+  <p> And run <pre>meteor --settings example.json</pre></p>
+
+  <p>More details about settings.json on <a target="_blank" href="https://themeteorchef.com/snippets/making-use-of-settings-json/">Making Use of Settings.json</a></p>
+  <div id="chart2" width="100%"></div>
 </template>
