@@ -53,7 +53,7 @@ if (Meteor.isClient) {
   else {
     packages = settings.packages
   }
-  console.log(packages)
+
   google.load('visualization', '1.0', {'packages': packages, callback: drawChart});
 
   drawChart = function (chart) {
