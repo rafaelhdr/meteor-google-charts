@@ -1,7 +1,7 @@
 Package.describe({
   name: 'rafaelhdr:google-charts',
   summary: 'Easy Google Charts for Meteor',
-  version: '0.0.5',
+  version: '0.0.6',
   git: 'https://github.com/rafaelhdr/meteor-google-charts.git'
 });
 
