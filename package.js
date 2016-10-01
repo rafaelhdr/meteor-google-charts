@@ -7,12 +7,12 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.3.5.1');
-  api.addFiles('rafaelhdr:google-charts.js');
+  api.addFiles('rafaelhdr_google-charts.js');
   api.export(['drawChart'], 'client');
 });
 
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('rafaelhdr:google-charts');
-  api.addFiles('rafaelhdr:google-charts-tests.js');
+  api.addFiles('rafaelhdr_google-charts-tests.js');
 });
