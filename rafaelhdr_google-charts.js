@@ -4,10 +4,48 @@ if (Meteor.isClient) {
 
   // Empty queue
   var googleChartsQueue = []
+  var googleChartsIsReady = false
 
   // Initial drawChart (add to queue)
-  drawChart = function(chart) {
+  addChartToQueue = function(chart) {
     googleChartsQueue.push(chart)
+  }
+
+  // Main method
+  drawChart = function (chart) {
+
+    // Not ready. Add to queue
+    if(!googleChartsIsReady) {
+      addChartToQueue(chart)
+      return false
+    }
+
+    // Render chart (default behavior)
+
+    var data
+
+    // Columns and rows based charts
+    if (typeof chart.columns != 'undefined' && typeof chart.rows != 'undefined')
+    {
+      window.g = google
+      data = new google.visualization.DataTable();
+
+      _.each(chart.columns, function (column) {
+        data.addColumn(column[0], column[1]);
+      });
+      data.addRows(chart.rows);
+    }
+
+    else {
+      data = google.visualization.arrayToDataTable(chart.data)
+    }
+
+    var options = chart.options;
+
+    var renderedChart = new google.visualization[chart.type](document.getElementById(chart.target));
+    renderedChart.draw(data, options);
+
+    return renderedChart;
   }
 
   // Packages
@@ -57,34 +95,7 @@ if (Meteor.isClient) {
     google.charts.load('current', {'packages': packages});
     google.charts.setOnLoadCallback(function(){
 
-      // Redefine drawChart
-      drawChart = function (chart) {
-
-        var data
-
-        // Columns and rows based charts
-        if (typeof chart.columns != 'undefined' && typeof chart.rows != 'undefined')
-        {
-          window.g = google
-          data = new google.visualization.DataTable();
-
-          _.each(chart.columns, function (column) {
-            data.addColumn(column[0], column[1]);
-          });
-          data.addRows(chart.rows);
-        }
-
-        else {
-          data = google.visualization.arrayToDataTable(chart.data)
-        }
-
-        var options = chart.options;
-
-        var renderedChart = new google.visualization[chart.type](document.getElementById(chart.target));
-        renderedChart.draw(data, options);
-
-        return renderedChart;
-      }
+      googleChartsIsReady = true
 
       // Run queued charts
       googleChartsQueue.forEach(function(chart) {
