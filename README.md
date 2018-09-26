@@ -11,4 +11,4 @@ meteor add rafaelhdr:google-charts
 ```
 
 ## Example
-Copy files from **example** folder and test on meteor.
+Copy files from **example** folder and edit package.json `meteor.mainModule.client` to `example.js`.
