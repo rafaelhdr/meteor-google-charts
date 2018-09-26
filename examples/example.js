@@ -1,3 +1,5 @@
+import './example.html'
+
 if (Meteor.isClient) {
 
   Meteor.startup(function () {
